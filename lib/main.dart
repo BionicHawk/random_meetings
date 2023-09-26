@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:random_meetings/screens/login/login.dart';
+import 'screens/welcome/welcome.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,8 +11,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        title: 'Meetup - Conocer y crea planes',
         theme: ThemeData(useMaterial3: true),
         debugShowCheckedModeBanner: false,
-        home: LoginScreen());
+        home: Welcome(),
+    );
   }
 }
