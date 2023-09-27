@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_meetings/Common/dialogs.dart';
 import 'package:random_meetings/screens/home/home.dart';
-import 'package:random_meetings/screens/login/components/buttons.dart';
 import 'components/field.dart';
 
 class LoginScreen extends StatelessWidget {

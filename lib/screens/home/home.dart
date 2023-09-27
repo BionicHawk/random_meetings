@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:random_meetings/Common/navigation_bar.dart';
 import 'package:random_meetings/screens/home/components/bottom_sheet_content.dart';
+import 'package:random_meetings/screens/home/components/meeting_map.dart';
 import 'package:random_meetings/screens/profile/profile.dart';
 import 'package:random_meetings/screens/settings/settings.dart';
+
+// ignore: constant_identifier_names
+const MAPBOX_ACCESS_TOKEN =
+    "pk.eyJ1IjoiYmlvbmljaGF3ayIsImEiOiJjbG4yYno5enowNmt5Mndxd2Ftdzc2eWx1In0.ynLPGgH8j1UutdQLHwKSwQ";
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -41,7 +46,7 @@ class Home extends StatelessWidget {
         children: [
           Expanded(
               child: Stack(children: [
-            const Placeholder(),
+            const MeetingMap(token: MAPBOX_ACCESS_TOKEN),
             Align(
               alignment: Alignment.bottomCenter,
               child: showBottomSheetButton,
