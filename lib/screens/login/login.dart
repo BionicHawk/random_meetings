@@ -163,7 +163,7 @@ class LoginScreen extends StatelessWidget {
                   child: mainTitle,
                 ),
                 SizedBox(
-                  child: Image.asset('assets/login.jpeg'),
+                  child: Image.asset('assets/login.jpeg', width: 220),
                 ),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 20),
