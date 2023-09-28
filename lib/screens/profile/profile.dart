@@ -5,7 +5,7 @@ import 'package:random_meetings/screens/home/home.dart';
 import 'package:random_meetings/screens/settings/settings.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key});
+  const Profile({super.key});
 
   void goToHome(BuildContext context) {
     Navigator.pop(context);
@@ -28,77 +28,87 @@ class Profile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // Quitar la flecha de retroceso
-       backgroundColor: Color(0xFFFF1154), // Cambiar el color de fondo a rojo
-       title: Text("Perfil", style: TextStyle(fontWeight: FontWeight.bold),),
+        backgroundColor:
+            const Color(0xFFFF1154), // Cambiar el color de fondo a rojo
+        title: const Text(
+          "Perfil",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: 600, // Ancho de la imagen
-              height: 250, // Alto de la imagen 
+              height: 250, // Alto de la imagen
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0), 
+                borderRadius: BorderRadius.circular(8.0),
                 child: Image.asset(
                   'assets/profile.jpg',
-                  fit: BoxFit.cover, 
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            const SizedBox(height: 16), // Espacio entre la foto y el nombre de usuario
+            const SizedBox(
+                height: 16), // Espacio entre la foto y el nombre de usuario
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(children: [
-                  CircleAvatar(child: Icon(Icons.person)),
-                  TitleWithIcon(title: 'Nombre de usuario', icon: Icons.edit),
-                ],),
-                Text(
-                    'User',
-                    style: TextStyle(height: 1.5, fontSize: 16),
+                const Row(
+                  children: [
+                    CircleAvatar(child: Icon(Icons.person)),
+                    TitleWithIcon(title: 'Nombre de usuario', icon: Icons.edit),
+                  ],
                 ),
-                Divider(),
-                Row(children: [
-                  CircleAvatar(child: Icon(Icons.question_mark)),
-                  TitleWithIcon(title: 'Sobre mi', icon: Icons.edit),
-                ],),
-                
-                Text(
+                const Text(
+                  'User',
+                  style: TextStyle(height: 1.5, fontSize: 16),
+                ),
+                const Divider(),
+                const Row(
+                  children: [
+                    CircleAvatar(child: Icon(Icons.question_mark)),
+                    TitleWithIcon(title: 'Sobre mi', icon: Icons.edit),
+                  ],
+                ),
+                const Text(
                   'Soy un amante de los museos. Disfruto explorando obras de arte, objetos históricos y'
                   ' exposiciones culturales en mi tiempo libre. Los museos son mi lugar favorito para aprender y encontrar inspiración.',
                   style: TextStyle(height: 2.5, fontSize: 16),
                 ),
-                Divider(),
-                Row(children: [
-                  CircleAvatar(child: Icon(Icons.location_city)),
-                  TitleWithIcon(title: 'Ubicación', icon: Icons.edit),
-                ],),
-                
-                Text(
+                const Divider(),
+                const Row(
+                  children: [
+                    CircleAvatar(child: Icon(Icons.location_city)),
+                    TitleWithIcon(title: 'Ubicación', icon: Icons.edit),
+                  ],
+                ),
+                const Text(
                   'Monterrey, Nuevo León',
                   style: TextStyle(height: 1.5, fontSize: 16),
                 ),
-                Divider(),
-                Row(children: [
-                  CircleAvatar(child: Icon(Icons.interests),),
-                  TitleWithIcon(title: 'Intereses', icon: Icons.edit),
-                ],),
+                const Divider(),
+                const Row(
+                  children: [
+                    CircleAvatar(
+                      child: Icon(Icons.interests),
+                    ),
+                    TitleWithIcon(title: 'Intereses', icon: Icons.edit),
+                  ],
+                ),
                 Container(
-                  margin: EdgeInsets.only(top:8),
-                  child: Row(
-
+                  margin: const EdgeInsets.only(top: 8),
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       CustomTextContainer(text: 'MUSICA'),
                       CustomTextContainer(text: 'MUSEOS'),
                       CustomTextContainer(text: 'HISTORIA'),
-          
                     ],
                   ),
                 ),
-                
               ],
             ),
           ],
@@ -130,7 +140,7 @@ class TitleWithIcon extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         IconButton(
           icon: Icon(icon),
@@ -149,15 +159,15 @@ class CustomTextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(4.0),
       decoration: BoxDecoration(
-        color: Color(0xFFFF1154),
+        color: const Color(0xFFFF1154),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),

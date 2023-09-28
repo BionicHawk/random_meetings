@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:random_meetings/Common/dialogs.dart';
 import 'package:random_meetings/Common/navigation_bar.dart';
 import 'package:random_meetings/screens/home/home.dart';
 import 'package:random_meetings/screens/login/login.dart';
@@ -27,8 +26,8 @@ class SettingsScreen extends StatelessWidget {
 
     void signOut() {
       Navigator.pop(context);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
 
     final signOutWidget = SettingButton(
