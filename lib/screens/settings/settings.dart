@@ -28,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
     void signOut() {
       Navigator.pop(context);
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+          MaterialPageRoute(builder: (context) => LoginScreen()));
     }
 
     final signOutWidget = SettingButton(
