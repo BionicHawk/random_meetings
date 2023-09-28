@@ -7,7 +7,7 @@ import 'package:random_meetings/screens/settings/settings.dart';
 
 // ignore: constant_identifier_names
 const MAPBOX_ACCESS_TOKEN =
-    "pk.eyJ1IjoiYmlvbmljaGF3ayIsImEiOiJjbG4yYno5enowNmt5Mndxd2Ftdzc2eWx1In0.ynLPGgH8j1UutdQLHwKSwQ";
+    "pk.eyJ1IjoiYmlvbmljaGF3ayIsImEiOiJjbG4yeG5tenowYXI2Mmxtc3A1ZGd0M2cxIn0.iaMUQ_9amb9zijhouYnOag";
 
 class Home extends StatelessWidget {
   const Home({super.key});
