@@ -1,105 +1,94 @@
 import 'package:random_meetings/screens/login/login.dart';
 import 'package:flutter/material.dart';
-import 'package:random_meetings/screens/signin/signout.dart';
+import 'package:random_meetings/screens/signup/signup_page.dart';
+import 'package:random_meetings/Common/sign_button.dart';
 
 class Welcome extends StatelessWidget {
+  const Welcome({super.key});
+
   @override
   Widget build(BuildContext context) {
+    const accentColor = Color(0xFFFF1154);
+
+    void goToLogin() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
+
+    void goToSignup() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SignupPage()));
+    }
+
+    const welcomeTitle = Text(
+      "¡Bienvenido!",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 30,
+      ),
+    );
+
+    const welcomeText = Text(
+      "Explora y conecta con personas que comparten tus intereses en Meetup",
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: accentColor,
+        fontSize: 15,
+      ),
+    );
+
+    final signInButton = SignButton(
+      outlined: false,
+      buttonColor: accentColor,
+      buttonName: "Iniciar Sesión",
+      textColor: Colors.white,
+      onPressed: goToLogin,
+    );
+
+    final signUpButton = SignButton(
+      outlined: true,
+      outlineColor: accentColor,
+      textColor: Colors.black,
+      buttonName: "Registrarse",
+      onPressed: goToSignup,
+    );
+
+    final columnOfButtons = Column(
+      children: [
+        signInButton,
+        const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+        signUpButton,
+      ],
+    );
+
     return Scaffold(
       body: SafeArea(
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          color: Color.fromARGB(255, 255, 255, 255),
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          color: const Color.fromARGB(255, 255, 255, 255),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             // even space distribution
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    "¡Bienvenido!",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-
-                    ),
-                    
-                  ),
+            children: [
+              const Column(
+                children: [
+                  welcomeTitle,
                   SizedBox(
                     height: 20,
                   ),
-                  Text("Explora y conecta con personas que comparten tus intereses en Meetup",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFFFF1154),
-                    fontSize: 15,
-
-
-                  ),)
+                  welcomeText,
                 ],
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/login.jpeg")
-                  )
-                ),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/login.jpeg"))),
               ),
-
-              Column(
-                children: <Widget>[
-                  // the login button
-                  MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-
-                    },
-                    // defining the shape
-                    color: Color(0xFFFF1154),
-                    shape: RoundedRectangleBorder(          
-                      borderRadius: BorderRadius.circular(50)
-                    ),
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
-                      ),
-                    ),
-                  ),
-                  // creating the signup button
-                  SizedBox(height:20),
-                  MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupPage()));
-
-                    },
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: Color(0xFFFF1154)
-                      ),
-                      borderRadius: BorderRadius.circular(50)
-                    ),
-                    child: Text(
-                      "Sign up",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
-                      ),
-                    ),
-                  )
-                ],
-              )
+              columnOfButtons,
             ],
           ),
         ),

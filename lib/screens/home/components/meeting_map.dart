@@ -27,8 +27,8 @@ class _MeetingMapState extends State<MeetingMap> {
     }
 
     _streamSubscription = Geolocator.getPositionStream(
-            locationSettings:
-                LocationSettings(accuracy: LocationAccuracy.bestForNavigation))
+            locationSettings: const LocationSettings(
+                accuracy: LocationAccuracy.bestForNavigation))
         .listen(callback);
   }
 

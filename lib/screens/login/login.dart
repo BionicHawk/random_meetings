@@ -1,14 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:random_meetings/Common/dialogs.dart';
 import 'package:random_meetings/screens/home/home.dart';
-import 'package:random_meetings/screens/signin/signout.dart';
+import 'package:random_meetings/screens/login/components/field.dart';
+import 'package:random_meetings/screens/signup/signup_page.dart';
+
 // import 'package:diseno_app/screens/login/components/buttons.dart';  CHECAR SI AUN LOS NECESITAS
-// import 'components/field.dart';  CHECAR SI AUN LOS NECESITAS 
-final userFieldController = TextEditingController();
-final passFieldController = TextEditingController();
+// import 'components/field.dart';  CHECAR SI AUN LOS NECESITAS
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final userFieldController = TextEditingController();
+    final passFieldController = TextEditingController();
+    const accentColor = Color(0xFFFF1154);
+
+    Future<bool> validateCredentials(String username, String password) async {
+      final users = [
+        {"username": "angel", "password": "1234"},
+        {"username": "yamileth", "password": "4567"},
+        {"username": "dante", "password": "qwer"},
+        {"username": "emiliano", "password": "tyui"},
+        {"username": "nelson", "password": "asdf"}
+      ];
+
+      for (final user in users) {
+        if (user["username"] == username && user["password"] == password) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    void signIn(BuildContext context) async {
+      final String username = userFieldController.text;
+      final String password = passFieldController.text;
+
+      bool success = await validateCredentials(username, password);
+
+      if (!success) {
+        // ignore: use_build_context_synchronously
+        showErrorDialog(context, "Error de inicio de sesión",
+            "La contraseña o el nombre de usuario son incorrectos");
+      } else {
+        // si la credencia correcta
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+        );
+      }
+    }
+
+    final userField = Field(
+      hintText: "Usuario",
+      icon: Icons.person_outline,
+      iconColor: accentColor,
+      textEditingController: userFieldController,
+    );
+
+    final passField = Field(
+      hintText: "Contraseña",
+      icon: Icons.lock_outline,
+      iconColor: accentColor,
+      discretText: true,
+      textEditingController: passFieldController,
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -19,7 +79,7 @@ class LoginScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,
@@ -40,12 +100,12 @@ class LoginScreen extends StatelessWidget {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Inciar sesión",
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(
@@ -58,28 +118,31 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Column(
                           children: <Widget>[
-                            inputFile(label: "Usuario"),
-                            inputFile(label: "Contraseña", obscureText: true)
+                            userField,
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            passField
                           ],
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Container(
-                          padding: EdgeInsets.only(top: 3, left: 3),
+                          padding: const EdgeInsets.only(top: 3, left: 3),
                           child: MaterialButton(
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () => signIn(context),
-                            color: Color(0xFFFF1154),
+                            color: const Color(0xFFFF1154),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
                             ),
-                            child: Text(
+                            child: const Text(
                               "INICIAR SESIÓN",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -90,29 +153,30 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                       Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("¿Todavía no tienes cuenta?"),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => SignupPage()));
-                              },
-                              child: Text(
-                                "Regístrate",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18,
-                                  color: Color.fromARGB(255, 255, 17, 84), 
-                                ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Text("¿Todavía no tienes cuenta?"),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => const SignupPage()));
+                            },
+                            child: const Text(
+                              "Regístrate",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 255, 17, 84),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
+                      ),
                       Container(
-                        padding: EdgeInsets.only(top: 100),
+                        padding: const EdgeInsets.only(top: 100),
                         height: 200,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/singup.jpg"),
                             fit: BoxFit.fitHeight,
@@ -129,86 +193,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-  // Widget para el campo de texto
-  Widget inputFile({label, obscureText = false}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          label,
-          style: TextStyle(
-              fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        TextField(
-          controller: label == "Usuario" ? userFieldController : (label == "Contraseña" ? passFieldController : null),
-          obscureText: obscureText,
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey))),
-        ),
-        SizedBox(height: 10,)
-      ],
-    );
-  }
-
-  void signIn(BuildContext context) async {
-    final String username = userFieldController.text;
-    final String password = passFieldController.text;
-
-    bool success = await validateCredentials(username, password);
-
-    if (!success) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Error de inicio de sesión'),
-            content: Text('La contraseña o el nombre de usuario son incorrectos.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      ); 
-      } else {
-    // si la credencia correcta
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => Home()), // nos llevara a home
-    );
-  }
 }
-
-  }
-
-  Future<bool> validateCredentials(String username, String password) async {
-    final users = [
-      {"username": "angel", "password": "1234"},
-      {"username": "yamileth", "password": "4567"},
-      {"username": "dante", "password": "qwer"},
-      {"username": "emiliano", "password": "tyui"},
-      {"username": "nelson", "password": "asdf"}
-    ];
-
-    for (final user in users) {
-      if (user["username"] == username && user["password"] == password) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
