@@ -1,6 +1,6 @@
 import 'package:random_meetings/screens/login/login.dart';
 import 'package:flutter/material.dart';
-import 'package:random_meetings/screens/logout/signout.dart';
+import 'package:random_meetings/screens/signin/signout.dart';
 
 class Welcome extends StatelessWidget {
   @override

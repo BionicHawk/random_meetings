@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_meetings/screens/home/home.dart';
-import 'package:random_meetings/screens/logout/signout.dart';
+import 'package:random_meetings/screens/signin/signout.dart';
 // import 'package:diseno_app/screens/login/components/buttons.dart';  CHECAR SI AUN LOS NECESITAS
 // import 'components/field.dart';  CHECAR SI AUN LOS NECESITAS 
 final userFieldController = TextEditingController();
