@@ -29,7 +29,7 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false, // Quitar la flecha de retroceso
        backgroundColor: Color(0xFFFF1154), // Cambiar el color de fondo a rojo
-       title: Text("Perfil"),
+       title: Text("Perfil", style: TextStyle(fontWeight: FontWeight.bold),),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -51,32 +51,54 @@ class Profile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TitleWithIcon(title: 'Nombre de usuario', icon: Icons.edit),
+                Row(children: [
+                  CircleAvatar(child: Icon(Icons.person)),
+                  TitleWithIcon(title: 'Nombre de usuario', icon: Icons.edit),
+                ],),
                 Text(
-                  'User',
-                  style: TextStyle(height: 1.5),
+                    'User',
+                    style: TextStyle(height: 1.5, fontSize: 16),
                 ),
-                TitleWithIcon(title: 'Sobre mi', icon: Icons.edit),
+                Divider(),
+                Row(children: [
+                  CircleAvatar(child: Icon(Icons.question_mark)),
+                  TitleWithIcon(title: 'Sobre mi', icon: Icons.edit),
+                ],),
+                
                 Text(
                   'Soy un amante de los museos. Disfruto explorando obras de arte, objetos históricos y'
                   ' exposiciones culturales en mi tiempo libre. Los museos son mi lugar favorito para aprender y encontrar inspiración.',
-                  style: TextStyle(height: 2.5),
+                  style: TextStyle(height: 2.5, fontSize: 16),
                 ),
-                TitleWithIcon(title: 'Ubicación', icon: Icons.edit),
+                Divider(),
+                Row(children: [
+                  CircleAvatar(child: Icon(Icons.location_city)),
+                  TitleWithIcon(title: 'Ubicación', icon: Icons.edit),
+                ],),
+                
                 Text(
                   'Monterrey, Nuevo León',
-                  style: TextStyle(height: 1.5),
+                  style: TextStyle(height: 1.5, fontSize: 16),
                 ),
-                TitleWithIcon(title: 'Intereses', icon: Icons.edit),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CustomTextContainer(text: 'MUSICA'),
-                    CustomTextContainer(text: 'MUSEOS'),
-                    CustomTextContainer(text: 'HISTORIA'),
-         
-                  ],
+                Divider(),
+                Row(children: [
+                  CircleAvatar(child: Icon(Icons.interests),),
+                  TitleWithIcon(title: 'Intereses', icon: Icons.edit),
+                ],),
+                Container(
+                  margin: EdgeInsets.only(top:8),
+                  child: Row(
+
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      CustomTextContainer(text: 'MUSICA'),
+                      CustomTextContainer(text: 'MUSEOS'),
+                      CustomTextContainer(text: 'HISTORIA'),
+          
+                    ],
+                  ),
                 ),
+                
               ],
             ),
           ],
