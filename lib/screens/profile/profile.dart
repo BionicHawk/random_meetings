@@ -1,176 +1,68 @@
 import 'package:flutter/material.dart';
-
-import 'package:random_meetings/Common/navigation_bar.dart';
-import 'package:random_meetings/screens/home/home.dart';
-import 'package:random_meetings/screens/settings/settings.dart';
+import 'package:random_meetings/screens/profile/components/description_item.dart';
+import 'package:random_meetings/screens/profile/components/information_widget.dart';
+import 'package:random_meetings/screens/profile/components/interest_box.dart';
+import 'package:random_meetings/screens/profile/components/profile_picture.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
-  void goToHome(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const Home()),
-    );
-  }
+  static String userName = "User";
+  static String description =
+      "Soy un amante de los museos. Disfruto explorando obras de arte, objetos históricos y exposiciones culturales en mi tiempo libre. Los museos son mi lugar favorito para aprender y encontrar inspiración.";
+  static String address = "Monterrey, Nuevo León";
 
-  void goToSettings(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SettingsScreen()),
-    );
-  }
+  static List<String> interests = [
+    "MÚSICA",
+    "MÚSEOS",
+    "HISTORIA",
+    "VIDEOJUEGOS",
+    "GASTRONOMÍA"
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // Quitar la flecha de retroceso
-        backgroundColor:
-            const Color(0xFFFF1154), // Cambiar el color de fondo a rojo
-        title: const Text(
-          "Perfil",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 600, // Ancho de la imagen
-              height: 250, // Alto de la imagen
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  'assets/profile.jpg',
-                  fit: BoxFit.cover,
+    String srcImage = 'assets/profile.jpg';
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ProfilePicture(srcImage: srcImage),
+          const SizedBox(
+              height: 16), // Espacio entre la foto y el nombre de usuario
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DescriptionItem(
+                labelName: "Nombre de Usuario",
+                icon: Icons.person_rounded,
+                child: InformationWidget(description: userName),
+              ),
+              DescriptionItem(
+                labelName: "Sobre mí",
+                icon: Icons.question_mark_rounded,
+                child: InformationWidget(
+                  description: description,
+                  height: 2.5,
                 ),
               ),
-            ),
-            const SizedBox(
-                height: 16), // Espacio entre la foto y el nombre de usuario
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Row(
-                  children: [
-                    CircleAvatar(child: Icon(Icons.person)),
-                    TitleWithIcon(title: 'Nombre de usuario', icon: Icons.edit),
-                  ],
+              DescriptionItem(
+                labelName: "Ubicación",
+                icon: Icons.location_city_rounded,
+                child: InformationWidget(
+                  description: address,
                 ),
-                const Text(
-                  'User',
-                  style: TextStyle(height: 1.5, fontSize: 16),
-                ),
-                const Divider(),
-                const Row(
-                  children: [
-                    CircleAvatar(child: Icon(Icons.question_mark)),
-                    TitleWithIcon(title: 'Sobre mi', icon: Icons.edit),
-                  ],
-                ),
-                const Text(
-                  'Soy un amante de los museos. Disfruto explorando obras de arte, objetos históricos y'
-                  ' exposiciones culturales en mi tiempo libre. Los museos son mi lugar favorito para aprender y encontrar inspiración.',
-                  style: TextStyle(height: 2.5, fontSize: 16),
-                ),
-                const Divider(),
-                const Row(
-                  children: [
-                    CircleAvatar(child: Icon(Icons.location_city)),
-                    TitleWithIcon(title: 'Ubicación', icon: Icons.edit),
-                  ],
-                ),
-                const Text(
-                  'Monterrey, Nuevo León',
-                  style: TextStyle(height: 1.5, fontSize: 16),
-                ),
-                const Divider(),
-                const Row(
-                  children: [
-                    CircleAvatar(
-                      child: Icon(Icons.interests),
-                    ),
-                    TitleWithIcon(title: 'Intereses', icon: Icons.edit),
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      CustomTextContainer(text: 'MUSICA'),
-                      CustomTextContainer(text: 'MUSEOS'),
-                      CustomTextContainer(text: 'HISTORIA'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: NavigationBarMap(
-        userAtProfile: true,
-        goToHome: () => goToHome(context),
-        goToSettings: () => goToSettings(context),
-      ),
-    );
-  }
-}
-
-class TitleWithIcon extends StatelessWidget {
-  final String title;
-  final IconData icon;
-
-  const TitleWithIcon({
-    Key? key,
-    required this.title,
-    required this.icon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        IconButton(
-          icon: Icon(icon),
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
-}
-
-class CustomTextContainer extends StatelessWidget {
-  final String text;
-
-  const CustomTextContainer({Key? key, required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      margin: const EdgeInsets.all(4.0),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFF1154),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
+              ),
+              DescriptionItem(
+                labelName: "Intereses",
+                icon: Icons.interests,
+                child: InterestBox(interests: interests),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

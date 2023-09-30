@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:random_meetings/Common/base_screen.dart';
 import 'package:random_meetings/Common/dialogs.dart';
-import 'package:random_meetings/screens/home/home.dart';
 import 'package:random_meetings/screens/login/components/field.dart';
 import 'package:random_meetings/screens/signup/signup_page.dart';
 
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Home()),
+          MaterialPageRoute(builder: (context) => const BaseScreen()),
         );
       }
     }
