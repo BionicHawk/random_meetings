@@ -9,11 +9,11 @@ import 'package:random_meetings/screens/signup/signup_page.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+  static final userFieldController = TextEditingController();
+  static final passFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final userFieldController = TextEditingController();
-    final passFieldController = TextEditingController();
     const accentColor = Color(0xFFFF1154);
 
     Future<bool> validateCredentials(String username, String password) async {
@@ -59,6 +59,7 @@ class LoginScreen extends StatelessWidget {
       icon: Icons.person_outline,
       iconColor: accentColor,
       textEditingController: userFieldController,
+      action: TextInputAction.next,
     );
 
     final passField = Field(
@@ -67,6 +68,10 @@ class LoginScreen extends StatelessWidget {
       iconColor: accentColor,
       discretText: true,
       textEditingController: passFieldController,
+      action: TextInputAction.done,
+      onSubmit: () {
+        signIn(context);
+      },
     );
 
     return Scaffold(

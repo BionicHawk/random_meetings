@@ -10,6 +10,8 @@ class SettingLabel extends StatelessWidget {
   const SettingLabel(
       {super.key, this.height = 50, this.icon, this.labelName = "Setting"});
 
+  static var toggle = SwitchSetting();
+
   @override
   Widget build(BuildContext context) {
     const normalPadding = Padding(padding: EdgeInsets.symmetric(horizontal: 5));
@@ -27,8 +29,6 @@ class SettingLabel extends StatelessWidget {
     const spacer = Expanded(
       child: SizedBox(),
     );
-
-    final toggle = SwitchSetting();
 
     return SizedBox(
       height: height,
@@ -57,15 +57,25 @@ class SwitchSetting extends StatefulWidget {
 }
 
 class _SwitchSettingState extends State<SwitchSetting> {
+  bool switchOn = false;
   @override
   Widget build(BuildContext context) {
-    bool switchOn = widget.defaultEngaged;
+    @override
+    void initState() {
+      switchOn = widget.defaultEngaged;
+      super.initState();
+    }
+
     return Switch(
         value: switchOn,
         onChanged: (bool value) {
+          if (value) {
+            widget.whenEngaged;
+          } else {
+            widget.whenOff;
+          }
           setState(() {
             switchOn = value;
-            print(switchOn);
           });
         });
   }
