@@ -1,10 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:random_meetings/Common/app_static_settings.dart';
 import 'package:random_meetings/Common/sign_button.dart';
+import 'package:random_meetings/DTO/InterestData.dart';
 import 'package:random_meetings/screens/login/login.dart';
+import 'package:dio/dio.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+
+  List<InterestData> interests = List.empty(growable: true);
+
+  Future<void> fetchInterest() async {
+    Response<dynamic> data = await Dio().get(Connection.getApiUrlAllInterests());
+    var rawData = data.data["data"];
+
+    for (var raw in rawData) {
+      interests.add(new InterestData.fromJson(raw));
+    }
+
+    // TODO
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchInterest();
+  }
 
   @override
   Widget build(BuildContext context) {

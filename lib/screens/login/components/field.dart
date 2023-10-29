@@ -12,6 +12,8 @@ class Field extends StatefulWidget {
   final Color textColor;
   final double? fontSize;
   final double? letterSpacing;
+  final TextInputAction? action;
+  final VoidCallback? onSubmit;
 
   const Field(
       {super.key,
@@ -25,20 +27,16 @@ class Field extends StatefulWidget {
       this.cursorColor = Colors.grey,
       this.textColor = Colors.black54,
       this.fontSize,
-      this.letterSpacing});
+      this.letterSpacing,
+      this.action,
+      this.onSubmit});
 
   @override
   State<Field> createState() => _FieldState();
 }
 
 class _FieldState extends State<Field> {
-  @override
-  void dispose() {
-    if (widget.textEditingController != null) {
-      widget.textEditingController!.dispose();
-    }
-    super.dispose();
-  }
+  String? text = "";
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +62,8 @@ class _FieldState extends State<Field> {
         cursorColor: widget.cursorColor,
         style: textStyle,
         decoration: inputDecoration,
+        textInputAction: widget.action,
+        onEditingComplete: widget.onSubmit,
       ),
     );
   }

@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:random_meetings/Common/navigation_bar.dart';
-import 'package:random_meetings/screens/home/home.dart';
-import 'package:random_meetings/screens/login/login.dart';
-import 'package:random_meetings/screens/profile/profile.dart';
 import 'package:random_meetings/screens/settings/components/section_conf.dart';
 import 'package:random_meetings/screens/settings/components/setting.dart';
 import 'package:random_meetings/screens/settings/components/setting_button.dart';
@@ -12,22 +8,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void goToHome() {
-      Navigator.pop(context);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Home()));
-    }
-
-    void goToProfile() {
-      Navigator.pop(context);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Profile()));
-    }
-
     void signOut() {
       Navigator.pop(context);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
 
     final signOutWidget = SettingButton(
@@ -43,25 +25,14 @@ class SettingsScreen extends StatelessWidget {
       },
     );
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Configuración")),
-      body: Column(children: [
-        Expanded(
-            child: Column(
-          children: [
-            const SectionConf(
-              sectionName: "Cuenta",
-            ),
-            const SettingLabel(),
-            signOutWidget
-          ],
-        )),
-        NavigationBarMap(
-          userAtSettings: true,
-          goToHome: goToHome,
-          goToProfile: goToProfile,
-        )
-      ]),
+    return Column(
+      children: [
+        const SectionConf(
+          sectionName: "Cuenta",
+        ),
+        const SettingLabel(),
+        signOutWidget
+      ],
     );
   }
 }

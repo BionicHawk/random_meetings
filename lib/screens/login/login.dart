@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:random_meetings/Common/base_screen.dart';
 import 'package:random_meetings/Common/dialogs.dart';
-import 'package:random_meetings/screens/home/home.dart';
 import 'package:random_meetings/screens/login/components/field.dart';
 import 'package:random_meetings/screens/signup/signup_page.dart';
 
@@ -9,11 +9,11 @@ import 'package:random_meetings/screens/signup/signup_page.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+  static final userFieldController = TextEditingController();
+  static final passFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final userFieldController = TextEditingController();
-    final passFieldController = TextEditingController();
     const accentColor = Color(0xFFFF1154);
 
     Future<bool> validateCredentials(String username, String password) async {
@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
         // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Home()),
+          MaterialPageRoute(builder: (context) => const BaseScreen()),
         );
       }
     }
@@ -59,6 +59,7 @@ class LoginScreen extends StatelessWidget {
       icon: Icons.person_outline,
       iconColor: accentColor,
       textEditingController: userFieldController,
+      action: TextInputAction.next,
     );
 
     final passField = Field(
@@ -67,6 +68,10 @@ class LoginScreen extends StatelessWidget {
       iconColor: accentColor,
       discretText: true,
       textEditingController: passFieldController,
+      action: TextInputAction.done,
+      onSubmit: () {
+        signIn(context);
+      },
     );
 
     return Scaffold(

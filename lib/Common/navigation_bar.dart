@@ -66,7 +66,7 @@ class NavBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FilledButton.tonal(
-        onPressed: onPressed ?? () {},
+        onPressed: !isUserHere ? onPressed ?? () {} : () {},
         style: FilledButton.styleFrom(
             backgroundColor: !isUserHere
                 ? Theme.of(context).cardColor
