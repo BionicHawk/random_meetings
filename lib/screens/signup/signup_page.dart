@@ -1,8 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:random_meetings/Common/HardCodedData/fake_interests.dart';
+import 'package:random_meetings/Common/Interests/interest_box.dart';
 import 'package:random_meetings/Common/app_communication_base.dart';
+import 'package:random_meetings/Common/app_static_settings.dart';
 import 'package:random_meetings/Common/sign_button.dart';
 import 'package:random_meetings/DTO/InterestData.dart';
+import 'package:random_meetings/DTO/UserOut.dart';
 import 'package:random_meetings/screens/login/login.dart';
 
 class SignupPage extends StatefulWidget {
@@ -13,25 +18,26 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-
   List<InterestData> interests = List.empty(growable: true);
   bool gotInterests = false;
   bool internetIssue = false;
 
   Future<void> fetchInterests() async {
-
     final previewInterests = await AppCommunicationBase.getAllInterests();
 
     if (previewInterests != null) {
+      gotInterests = true;
       interests.addAll(previewInterests);
     } else {
       gotInterests = false;
       internetIssue = AppCommunicationBase.isAnInternetIssue();
     }
 
-    internetIssue;
-    // TODO
+    interests;
+    setState(() {
 
+    });
+    // TODO
   }
 
   @override
@@ -48,8 +54,8 @@ class _SignupPageState extends State<SignupPage> {
 
     void goToLogin() {
       Navigator.pop(context);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
 
     final leading = IconButton(
@@ -68,6 +74,14 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
 
+    const interestSelectorTitle = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        "¡Seleccione sus intereses!",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+    );
+
     const commonPadding = SizedBox(
       height: 20,
     );
@@ -82,10 +96,19 @@ class _SignupPageState extends State<SignupPage> {
       buttonName: "Crear cuenta",
       buttonColor: accentColor,
       textColor: Colors.white,
-      onPressed: () {},
+      onPressed: () async {
+        UserOut user = UserOut(username: "bionichawk",
+            email: "angel@gmail.com",
+            password: "1234",
+            interests: FakeInterests.interests);
+        final response = await Dio().post(Connection.getApiUrlCreateUser(), data: user.toJson());
+        print(response.statusCode);
+
+      },
     );
 
-    return Scaffold(
+    return !internetIssue
+        ? Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -97,7 +120,10 @@ class _SignupPageState extends State<SignupPage> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height - 50,
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -111,7 +137,10 @@ class _SignupPageState extends State<SignupPage> {
                   inputFile(label: "Usuario"),
                   inputFile(label: "Email"),
                   inputFile(label: "Contraseña", obscureText: true),
-                  inputFile(label: "Confirma contraseña ", obscureText: true),
+                  inputFile(
+                      label: "Confirma contraseña ", obscureText: true),
+                  interestSelectorTitle,
+                  InterestBox(interests: interests)
                 ],
               ),
               Container(
@@ -138,7 +167,8 @@ class _SignupPageState extends State<SignupPage> {
           ),
         ),
       ),
-    );
+    )
+        : const Placeholder();
   }
 }
 
@@ -164,7 +194,7 @@ Widget inputFile({label, obscureText = false}) {
               ),
             ),
             border:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
       ),
       const SizedBox(
         height: 10,

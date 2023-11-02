@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:random_meetings/Common/HardCodedData/fake_interests.dart';
 import 'package:random_meetings/screens/profile/components/description_item.dart';
 import 'package:random_meetings/screens/profile/components/information_widget.dart';
-import 'package:random_meetings/screens/profile/components/interest_box.dart';
+import 'package:random_meetings/Common/Interests/interest_box.dart';
 import 'package:random_meetings/screens/profile/components/profile_picture.dart';
 
 class Profile extends StatelessWidget {
@@ -11,14 +12,6 @@ class Profile extends StatelessWidget {
   static String description =
       "Soy un amante de los museos. Disfruto explorando obras de arte, objetos históricos y exposiciones culturales en mi tiempo libre. Los museos son mi lugar favorito para aprender y encontrar inspiración.";
   static String address = "Monterrey, Nuevo León";
-
-  static List<String> interests = [
-    "MÚSICA",
-    "MÚSEOS",
-    "HISTORIA",
-    "VIDEOJUEGOS",
-    "GASTRONOMÍA"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +51,7 @@ class Profile extends StatelessWidget {
               DescriptionItem(
                 labelName: "Intereses",
                 icon: Icons.interests,
-                child: InterestBox(interests: interests),
+                child: InterestBox(interests: FakeInterests.interests),
               ),
             ],
           ),

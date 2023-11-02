@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:random_meetings/screens/profile/components/interest_tile.dart';
+import 'package:random_meetings/Common/Interests/interest_tile.dart';
+import 'package:random_meetings/DTO/InterestData.dart';
 
 class InterestBox extends StatefulWidget {
-  final List<String> interests;
+  final List<InterestData>? interests;
   const InterestBox({super.key, required this.interests});
 
   @override
@@ -19,10 +20,12 @@ class _InterestBoxState extends State<InterestBox> {
     List<Widget> temporaryRow = [];
     rows = [];
 
-    for (String interest in widget.interests) {
-      interestsWidget.add(InterestTile(
-        interestValue: interest,
-      ));
+    if (widget.interests != null) {
+      for (InterestData interest in widget.interests!) {
+        interestsWidget.add(InterestTile(
+          interest: interest,
+        ));
+      }
     }
 
     for (int i = 0; i < interestsWidget.length; i++) {
