@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:random_meetings/Common/app_static_settings.dart';
+import 'package:random_meetings/Common/app_communication_base.dart';
 import 'package:random_meetings/Common/sign_button.dart';
 import 'package:random_meetings/DTO/InterestData.dart';
 import 'package:random_meetings/screens/login/login.dart';
-import 'package:dio/dio.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -16,15 +15,21 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
 
   List<InterestData> interests = List.empty(growable: true);
+  bool gotInterests = false;
+  bool internetIssue = false;
 
-  Future<void> fetchInterest() async {
-    Response<dynamic> data = await Dio().get(Connection.getApiUrlAllInterests());
-    var rawData = data.data["data"];
+  Future<void> fetchInterests() async {
 
-    for (var raw in rawData) {
-      interests.add(new InterestData.fromJson(raw));
+    final previewInterests = await AppCommunicationBase.getAllInterests();
+
+    if (previewInterests != null) {
+      interests.addAll(previewInterests);
+    } else {
+      gotInterests = false;
+      internetIssue = AppCommunicationBase.isAnInternetIssue();
     }
 
+    internetIssue;
     // TODO
 
   }
@@ -32,7 +37,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   void initState() {
     super.initState();
-    fetchInterest();
+    fetchInterests();
   }
 
   @override
@@ -44,7 +49,7 @@ class _SignupPageState extends State<SignupPage> {
     void goToLogin() {
       Navigator.pop(context);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
 
     final leading = IconButton(
