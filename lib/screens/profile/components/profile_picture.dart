@@ -14,7 +14,7 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = Image.asset(
+    final image = Image.network(
       srcImage,
       fit: BoxFit.cover,
     );

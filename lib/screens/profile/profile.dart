@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_meetings/Common/HardCodedData/fake_interests.dart';
+import 'package:random_meetings/Common/app_static_settings.dart';
 import 'package:random_meetings/screens/profile/components/description_item.dart';
 import 'package:random_meetings/screens/profile/components/information_widget.dart';
 import 'package:random_meetings/Common/Interests/interest_box.dart';
@@ -15,7 +16,7 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String srcImage = 'assets/profile.jpg';
+    String srcImage = Connection.getApiProfileImage(Connection.localUser!.profilePic!);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
@@ -31,21 +32,14 @@ class Profile extends StatelessWidget {
               DescriptionItem(
                 labelName: "Nombre de Usuario",
                 icon: Icons.person_rounded,
-                child: InformationWidget(description: userName),
+                child: InformationWidget(description: Connection.localUser!.username),
               ),
               DescriptionItem(
                 labelName: "Sobre mí",
                 icon: Icons.question_mark_rounded,
                 child: InformationWidget(
-                  description: description,
+                  description: Connection.localUser!.description ?? "No hay descripción",
                   height: 2.5,
-                ),
-              ),
-              DescriptionItem(
-                labelName: "Ubicación",
-                icon: Icons.location_city_rounded,
-                child: InformationWidget(
-                  description: address,
                 ),
               ),
               DescriptionItem(

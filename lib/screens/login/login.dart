@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_meetings/Common/app_communication_base.dart';
 import 'package:random_meetings/Common/base_screen.dart';
 import 'package:random_meetings/Common/dialogs.dart';
 import 'package:random_meetings/screens/login/components/field.dart';
@@ -17,20 +18,8 @@ class LoginScreen extends StatelessWidget {
     const accentColor = Color(0xFFFF1154);
 
     Future<bool> validateCredentials(String username, String password) async {
-      final users = [
-        {"username": "angel", "password": "1234"},
-        {"username": "yamileth", "password": "4567"},
-        {"username": "dante", "password": "qwer"},
-        {"username": "emiliano", "password": "tyui"},
-        {"username": "nelson", "password": "asdf"}
-      ];
-
-      for (final user in users) {
-        if (user["username"] == username && user["password"] == password) {
-          return true;
-        }
-      }
-
+      ValidationType vType = await AppCommunicationBase.tryLogin(username, password);
+      if (vType == ValidationType.succesful) return true;
       return false;
     }
 

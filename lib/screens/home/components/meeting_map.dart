@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:random_meetings/Common/app_communication_base.dart';
+import 'package:random_meetings/Common/app_static_settings.dart';
+import 'package:random_meetings/DTO/MarkersIn.dart';
+import 'package:random_meetings/screens/room/room.dart';
 
 class MeetingMap extends StatefulWidget {
   final String token;
+
   const MeetingMap({super.key, required this.token});
 
   @override
@@ -40,14 +45,28 @@ class _MeetingMapState extends State<MeetingMap> {
     setState(() {
       if (position != null) {
         myPositon = LatLng(position.latitude, position.longitude);
+        Connection.userX = myPositon!.longitude;
+        Connection.userY = myPositon!.latitude;
       }
     });
+  }
+
+  Future<void> getMarkers() async {
+    final preMarkers = await AppCommunicationBase.getMarkers();
+    if (Connection.markersIns.isEmpty) {
+      final preMarkers = await AppCommunicationBase.getMarkers();
+      if (preMarkers != null) {
+        Connection.markersIns = preMarkers;
+      }
+    }
+    setState(() {});
   }
 
   @override
   void initState() {
     startPositionStream(_handlerPositionStream);
     super.initState();
+    getMarkers();
   }
 
   @override
@@ -58,6 +77,18 @@ class _MeetingMapState extends State<MeetingMap> {
 
   @override
   Widget build(BuildContext context) {
+    List<Marker> drawMarkers() {
+      List<Marker> markerPoints = List.empty(growable: true);
+      for (var marker in Connection.markersIns) {
+        markerPoints.add(Marker(
+            width: 90,
+            height: 90,
+            point: LatLng(marker.x, marker.y),
+            builder: (context) => MeetingMarker(markerData: marker)));
+      }
+      return markerPoints;
+    }
+
     final options = MapOptions(
       center: myPositon ?? const LatLng(0, 0),
       minZoom: 5,
@@ -76,14 +107,28 @@ class _MeetingMapState extends State<MeetingMap> {
 
     Marker userMarker = Marker(
         point: myPositon ?? const LatLng(0, 0),
-        builder: (context) => const Icon(
-              Icons.person_pin,
-              color: Colors.blueAccent,
-              size: 40,
+        width: 48,
+        height: 48,
+        builder: (context) => ClipOval(
+              child: Container(
+                color: Colors.greenAccent,
+                width: 100,
+                height: 100,
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: ClipOval(
+                    child: Container(
+                      color: Colors.white,
+                      child: Image.network(Connection.getApiProfileImage(
+                          Connection.localUser!.profilePic!)),
+                    ),
+                  ),
+                ),
+              ),
             ));
 
     MarkerLayer mLayer = MarkerLayer(
-      markers: [userMarker],
+      markers: [userMarker, ...drawMarkers()],
     );
 
     FlutterMap map = FlutterMap(
@@ -94,5 +139,58 @@ class _MeetingMapState extends State<MeetingMap> {
     const loadingWidget = Center(child: CircularProgressIndicator());
 
     return (myPositon == null) ? loadingWidget : map;
+  }
+}
+
+class MeetingMarker extends StatelessWidget {
+  const MeetingMarker({super.key, required this.markerData});
+
+  final MarkerIn markerData;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => RoomScreen(markerData: markerData)));
+      },
+      child: Column(
+        children: [
+          ClipOval(
+            child: Container(
+              color: Colors.cyanAccent,
+              child: const Padding(
+                padding: EdgeInsets.all(2.0),
+                child: MarkerLogo(),
+              ),
+            ),
+          ),
+          Text("${markerData.interest.name} #${markerData.id}",
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),)
+        ],
+      ),
+    );
+  }
+}
+
+class MarkerLogo extends StatelessWidget {
+  const MarkerLogo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: Container(
+        color: Colors.blue,
+        child: const Icon(Icons.pin_drop, color: Colors.white,),
+      ),
+    );
+  }
+}
+
+class UserMarkerIcon extends StatelessWidget {
+  const UserMarkerIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
