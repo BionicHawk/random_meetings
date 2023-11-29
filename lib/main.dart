@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Meetup - Conoce y crea planes',
       theme: ThemeData(useMaterial3: true),
-      home: Splash(),
+      home: const Splash(),
       debugShowCheckedModeBanner: false,
     );
   }
