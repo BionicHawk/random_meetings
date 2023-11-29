@@ -40,12 +40,14 @@ class AppCommunicationBase {
 
   static Future<ValidationType> trySendNewUser(UserForm user) async {
     // make some validations
-    if (user.password != user.confirmedPass)
+    if (user.password != user.confirmedPass) {
       return ValidationType.notMatchingPass;
-    if (!EmailValidator.validate(user.email))
+    }
+    if (!EmailValidator.validate(user.email)) {
       return ValidationType.notValidEmail;
+    }
 
-    final response = await _sendNewUser(UserOut.fromForm(user));
+    await _sendNewUser(UserOut.fromForm(user));
 
     if (isAnInternetIssue()) return ValidationType.serverOrInternetError;
 
@@ -80,7 +82,7 @@ class AppCommunicationBase {
       final response = await Dio().get(Connection.getApiMapPoints());
       if (response.statusCode == 201) {
         List<MarkerIn> markers = List.empty(growable: true);
-        final rawMarkers = response!.data["markers"];
+        final rawMarkers = response.data["markers"];
         for (var mark in rawMarkers) {
           markers.add(MarkerIn.fromJson(mark));
         }

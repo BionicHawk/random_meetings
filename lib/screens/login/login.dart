@@ -5,9 +5,6 @@ import 'package:random_meetings/Common/dialogs.dart';
 import 'package:random_meetings/screens/login/components/field.dart';
 import 'package:random_meetings/screens/signup/signup_page.dart';
 
-// import 'package:diseno_app/screens/login/components/buttons.dart';  CHECAR SI AUN LOS NECESITAS
-// import 'components/field.dart';  CHECAR SI AUN LOS NECESITAS
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   static final userFieldController = TextEditingController();

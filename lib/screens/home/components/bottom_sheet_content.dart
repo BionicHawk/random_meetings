@@ -1,11 +1,8 @@
 import 'dart:math';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:random_meetings/Common/app_static_settings.dart';
 import 'package:random_meetings/DTO/MarkersIn.dart';
-import 'package:random_meetings/screens/home/classes/meet_point.dart';
 import 'package:random_meetings/screens/home/components/meet_point_item.dart';
 
 const pinDropColor = Colors.red;

@@ -19,7 +19,7 @@ class EditProfileScreen extends StatelessWidget {
     usernameController.text = Connection.localUser!.username;
     descriptionController.text = Connection.localUser!.description ?? "";
 
-    void UpdateProfile() async {
+    void updateProfile() async {
       if (imageUrl.text.isNotEmpty && usernameController.text.isNotEmpty) {
         final currentUser = Connection.localUser!;
         UserUpdate updated = UserUpdate(
@@ -63,7 +63,7 @@ class EditProfileScreen extends StatelessWidget {
             ),
             const Expanded(child: Column()),
             SendButton(
-              asyncAction: UpdateProfile,
+              asyncAction: updateProfile,
             )
           ],
         ),

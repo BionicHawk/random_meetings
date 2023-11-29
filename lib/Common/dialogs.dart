@@ -26,7 +26,6 @@ void showWarningDialog(
   final okButton = TextButton(
       onPressed: () {
         okButtonName;
-        print("Ok function has been done!");
         Navigator.pop(context, true);
       },
       child: Text(okButtonName));
@@ -34,7 +33,6 @@ void showWarningDialog(
   final cancelButton = TextButton(
       onPressed: () {
         cancelFunction;
-        print("cancel function has been done!");
         Navigator.pop(context, false);
       },
       child: const Text("Cancelar"));

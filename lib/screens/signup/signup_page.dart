@@ -1,12 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:random_meetings/Common/HardCodedData/fake_interests.dart';
-import 'package:random_meetings/Common/Interests/interest_box.dart';
 import 'package:random_meetings/Common/app_communication_base.dart';
-import 'package:random_meetings/Common/app_static_settings.dart';
 import 'package:random_meetings/Common/dialogs.dart';
 import 'package:random_meetings/Common/sign_button.dart';
 import 'package:random_meetings/DTO/InterestData.dart';
@@ -75,14 +71,6 @@ class _SignupPageState extends State<SignupPage> {
       style: TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.bold,
-      ),
-    );
-
-    const interestSelectorTitle = Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(
-        "¡Seleccione sus intereses!",
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
 

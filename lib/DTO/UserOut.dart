@@ -1,4 +1,3 @@
-import 'package:random_meetings/DTO/InterestData.dart';
 import 'dart:convert';
 
 class UserForm {

@@ -10,7 +10,7 @@ class SettingLabel extends StatelessWidget {
   const SettingLabel(
       {super.key, this.height = 50, this.icon, this.labelName = "Setting"});
 
-  static var toggle = SwitchSetting();
+  static var toggle = const SwitchSetting();
 
   @override
   Widget build(BuildContext context) {

@@ -13,8 +13,8 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     // Retraso de 3 segundos antes de navegar a la pantalla principal.
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => Welcome()));
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const Welcome()));
     });
   }
 
@@ -24,7 +24,7 @@ class _SplashState extends State<Splash> {
       body: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        color: Color.fromARGB(255, 255, 255, 255), // Fondo color blanco
+        color: const Color.fromARGB(255, 255, 255, 255), // Fondo color blanco
         child: Center(
           child: Stack(
             children: [

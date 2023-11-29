@@ -1,6 +1,6 @@
 import '../../DTO/InterestData.dart';
 
-class FakeInterests {
+class DoneInterests {
   static List<InterestData> interests = [
     InterestData(id: 1, name: "Música"),
     InterestData(id: 2, name: "Múseos"),

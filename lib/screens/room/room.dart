@@ -5,6 +5,7 @@ import 'package:random_meetings/Common/app_static_settings.dart';
 import 'package:random_meetings/DTO/Comment.dart';
 import 'package:random_meetings/DTO/MarkersIn.dart';
 import 'package:random_meetings/DTO/OtherUser.dart';
+import 'package:random_meetings/screens/profile_viewer/profile_viewer_screen.dart';
 
 class RoomScreen extends StatefulWidget {
   const RoomScreen({super.key, required this.markerData});
@@ -19,7 +20,7 @@ class _RoomScreenState extends State<RoomScreen> {
   List<Comment>? comments;
   List<Message>? messages;
   TextEditingController commentController = TextEditingController();
-  var message ="Cargando comentarios...";
+  var message = "Cargando comentarios...";
 
   Future<void> fetchContent() async {
     comments = await AppCommunicationBase.getComments(widget.markerData.id);
@@ -28,8 +29,7 @@ class _RoomScreenState extends State<RoomScreen> {
       for (var comment in comments!) {
         messages!.add(Message(data: comment));
       }
-    } else {
-    }
+    } else {}
     message = "No hay comentarios";
     setState(() {});
   }
@@ -40,7 +40,6 @@ class _RoomScreenState extends State<RoomScreen> {
           id: Connection.localUser!.id,
           username: Connection.localUser!.username,
           profilePic: Connection.localUser!.profilePic);
-      print(fromThis.profilePic);
       Comment comment =
           Comment(id: 0, content: commentController.text, user: fromThis);
 
@@ -71,7 +70,8 @@ class _RoomScreenState extends State<RoomScreen> {
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
                     color: Colors.grey,
-                    child: ListView(children: messages ?? [Center(child: Text(message))]),
+                    child: ListView(
+                        children: messages ?? [Center(child: Text(message))]),
                   ))),
           Row(
             children: [
@@ -120,7 +120,11 @@ class Message extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profilePic = ClipOval(
-      child: SizedBox(width: 50, height: 50, child: Image.network(Connection.getApiProfileImage(data.user.profilePic!))),
+      child: SizedBox(
+          width: 50,
+          height: 50,
+          child: Image.network(
+              Connection.getApiProfileImage(data.user.profilePic!))),
     );
 
     return Card(
@@ -135,11 +139,20 @@ class Message extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(
-                  data.user.username,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ProfileViewerScreen(userId: data.user.id)));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Text(
+                    data.user.username,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               Padding(
@@ -154,10 +167,10 @@ class Message extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(bottom: 4, right: 4),
+                    padding: const EdgeInsets.only(bottom: 4, right: 4),
                     child: Text(
                       data.postedAt ?? "No data",
-                      style: TextStyle(color: Colors.blueGrey),
+                      style: const TextStyle(color: Colors.blueGrey),
                     ),
                   ),
                 ],

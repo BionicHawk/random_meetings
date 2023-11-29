@@ -56,4 +56,8 @@ class Connection {
     return "${getApiUrl()}user/update/$userId";
   }
 
+  static String getApiUserByIdUrl(int userId) {
+    return "${getApiUrl()}user/$userId";
+  }
+
 }

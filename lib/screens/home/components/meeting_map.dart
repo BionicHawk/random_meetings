@@ -52,7 +52,6 @@ class _MeetingMapState extends State<MeetingMap> {
   }
 
   Future<void> getMarkers() async {
-    final preMarkers = await AppCommunicationBase.getMarkers();
     if (Connection.markersIns.isEmpty) {
       final preMarkers = await AppCommunicationBase.getMarkers();
       if (preMarkers != null) {
