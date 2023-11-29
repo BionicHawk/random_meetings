@@ -19,16 +19,20 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
   List<MarkerIn> markersData = List.empty(growable: true);
 
   double resolveDistance(double x, double y) {
-    x *= pow(10.0, -4.0);
-    y *= pow(10.0, -4.0);
-    double uX = Connection.userX * pow(10.0, -4.0);
-    double uY = Connection.userY * pow(10.0, -4.0);
+    x *= 100;
+    y *= 100;
+    double uX = Connection.userX * 100;
+    double uY = Connection.userY * 100;
+
     if (x < 0.0) x *= -1;
     if (y < 0.0) y *= -1;
     if (uX < 0.0) uX *= -1;
     if (uY < 0.0) uY *= -1;
 
-    return sqrt(pow(uX - x, 2.0) + pow(uY - y, 2.0));
+    double deltaX = uX - y;
+    double deltaY = uY - x;
+
+    return sqrt(pow(deltaX, 2.0) + pow(deltaY, 2.0));
   }
 
   List<MarkerIn> sortList() {
@@ -53,7 +57,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
       for (int i = 0; i < newList.length - 1; i++) {
         var currentDistance = resolveDistance(newList[i].x, newList[i].y);
         var nextDistance = resolveDistance(newList[i + 1].x, newList[i + 1].y);
-        if (currentDistance > nextDistance) error = true;
+        if (nextDistance < currentDistance) error = true;
       }
     }
 

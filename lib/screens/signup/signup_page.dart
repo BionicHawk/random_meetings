@@ -110,7 +110,8 @@ class _SignupPageState extends State<SignupPage> {
             break;
           case ValidationType.succesful:
             Navigator.of(context).pop();
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
             break;
           case ValidationType.notValidUsername:
             showErrorDialog(context, "Nombre de usuario invalido",
@@ -185,7 +186,13 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
           )
-        : const Placeholder();
+        : Scaffold(
+            appBar: AppBar(title: const Text("Error de Conexión")),
+            body: const Center(
+              child: Text("Conexión no establecida",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
+          );
   }
 }
 
