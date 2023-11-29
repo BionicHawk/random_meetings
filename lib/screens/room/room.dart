@@ -60,8 +60,15 @@ class _RoomScreenState extends State<RoomScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            "Salón de ${widget.markerData.interest.name}#${widget.markerData.id}"),
+        title: Row(
+          children: [
+            Text(
+                "Salón de ${widget.markerData.interest.name}#${widget.markerData.id}"),
+            const Expanded(child: Row()),
+            IconButton(icon: const Icon(Icons.refresh), onPressed: fetchContent,),
+          ],
+        ),
+
       ),
       body: Column(
         children: [
