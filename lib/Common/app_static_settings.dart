@@ -31,6 +31,9 @@ class Connection {
   }
 
   static String getApiProfileImage(String imageLocalUri) {
+    if (imageLocalUri != "/images/profile_pics/default_profile_img.jpg") {
+      return imageLocalUri;
+    }
     if (imageLocalUri[0] == "/") {
       String newStr = "";
       for (int i = 1; i < imageLocalUri.length; i++) {
@@ -47,6 +50,10 @@ class Connection {
 
   static String getApiCommentsUrl(int roomId) {
     return "${getApiUrl()}maps/comment/$roomId";
+  }
+
+  static String getUpdateUserUrl(int userId) {
+    return "${getApiUrl()}user/update/$userId";
   }
 
 }

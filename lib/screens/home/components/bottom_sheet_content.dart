@@ -69,6 +69,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
     setState(() {
       for (var point in sortedPoints) {
         meetingPoints.add(MeetPointItem(
+          markerIn: point,
           iconColor: pinDropColor,
           pointName: "Reunión ${point.interest.name} #${point.id}",
           distanceValue: resolveDistance(point.x, point.y),
