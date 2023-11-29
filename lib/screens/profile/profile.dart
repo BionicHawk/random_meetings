@@ -47,6 +47,7 @@ class Profile extends StatelessWidget {
               DescriptionItem(
                 labelName: "Intereses",
                 icon: Icons.interests,
+                editionEnabled: false,
                 child: InterestBox(interests: DoneInterests.interests),
               ),
             ],

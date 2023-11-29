@@ -30,7 +30,6 @@ class SettingsScreen extends StatelessWidget {
         const SectionConf(
           sectionName: "Cuenta",
         ),
-        const SettingLabel(),
         signOutWidget
       ],
     );
