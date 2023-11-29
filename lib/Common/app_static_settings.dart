@@ -4,8 +4,8 @@ import '../DTO/UserIn.dart';
 
 class Connection {
   static const String _hostname =
-      "192.168.1.8"; // Ingresar el hostname donde se aloja el servidor
-  static const int _port = 3000; // Ingresar el puerto donde escucha el servidor
+      "https://express-ts-prisma.3.us-1.fl0.io/"; // Ingresar el hostname donde se aloja el servidor
+  static const int _port = 80; // Ingresar el puerto donde escucha el servidor
   static UserIn? localUser;
   static List<MarkerIn> markersIns = List.empty(growable: true);
   static double userX = 0.0;
@@ -13,7 +13,7 @@ class Connection {
 
   // Con esta funcion se traen la api desde el punto raiz
   static String getApiUrl() {
-    return "http://$_hostname:$_port/";
+    return _hostname;
   }
 
   // Con esta función se traen la url de los intereses
