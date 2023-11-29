@@ -12,12 +12,12 @@ class Welcome extends StatelessWidget {
 
     void goToLogin() {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
 
     void goToSignup() {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SignupPage()));
+          context, MaterialPageRoute(builder: (context) => const SignupPage()));
     }
 
     const welcomeTitle = Text(

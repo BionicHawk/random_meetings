@@ -4,7 +4,7 @@ import '../DTO/UserIn.dart';
 
 class Connection {
   static const String _hostname =
-      "192.168.1.172"; // Ingresar el hostname donde se aloja el servidor
+      "192.168.1.8"; // Ingresar el hostname donde se aloja el servidor
   static const int _port = 3000; // Ingresar el puerto donde escucha el servidor
   static UserIn? localUser;
   static List<MarkerIn> markersIns = List.empty(growable: true);
