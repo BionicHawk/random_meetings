@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:random_meetings/DTO/MarkersIn.dart';
+import 'package:random_meetings/screens/room/room.dart';
 
 class MeetPointItem extends StatelessWidget {
   final double height;
@@ -8,6 +10,7 @@ class MeetPointItem extends StatelessWidget {
   final double distanceValue;
   final IconData icon;
   final Color? iconColor;
+  final MarkerIn markerIn;
   
   const MeetPointItem({super.key, 
   this.height = 80, 
@@ -15,7 +18,7 @@ class MeetPointItem extends StatelessWidget {
   this.spacerValue = 10, 
   this.distanceValue = 0.0,
   this.icon = Icons.pin_drop,
-  this.iconColor});
+  this.iconColor, required this.markerIn});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,9 @@ class MeetPointItem extends StatelessWidget {
     );
 
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => RoomScreen(markerData: markerIn,)));
+      },
       child: SizedBox(
         height: height,
         child: Row(

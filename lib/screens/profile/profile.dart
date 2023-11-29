@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:random_meetings/Common/HardCodedData/fake_interests.dart';
 import 'package:random_meetings/Common/app_static_settings.dart';
+import 'package:random_meetings/screens/edit_profile/edit_profile.dart';
 import 'package:random_meetings/screens/profile/components/description_item.dart';
 import 'package:random_meetings/screens/profile/components/information_widget.dart';
 import 'package:random_meetings/Common/Interests/interest_box.dart';
@@ -18,6 +19,10 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     String srcImage = Connection.getApiProfileImage(Connection.localUser!.profilePic!);
 
+    void goEditProfile() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfileScreen()));
+    }
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -32,11 +37,13 @@ class Profile extends StatelessWidget {
               DescriptionItem(
                 labelName: "Nombre de Usuario",
                 icon: Icons.person_rounded,
+                editAction: goEditProfile,
                 child: InformationWidget(description: Connection.localUser!.username),
               ),
               DescriptionItem(
                 labelName: "Sobre mí",
                 icon: Icons.question_mark_rounded,
+                editAction: goEditProfile,
                 child: InformationWidget(
                   description: Connection.localUser!.description ?? "No hay descripción",
                   height: 2.5,
