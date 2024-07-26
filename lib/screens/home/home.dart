@@ -4,7 +4,7 @@ import 'package:random_meetings/screens/home/components/meeting_map.dart';
 
 // ignore: constant_identifier_names
 const MAPBOX_ACCESS_TOKEN =
-    "pk.eyJ1IjoiYmlvbmljaGF3ayIsImEiOiJjbG4yeG5tenowYXI2Mmxtc3A1ZGd0M2cxIn0.iaMUQ_9amb9zijhouYnOag";
+    "[USE YOUR TOKEN HERE]";
 
 class Home extends StatelessWidget {
   const Home({super.key});
